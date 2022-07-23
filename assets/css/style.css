@@ -1,0 +1,56 @@
+:root {
+  /* declare a variable with `--` syntax */
+  --dark-text: #13293d;
+  --dark-background: #13293d;
+  --light-text: #f5f5f5;
+  --light-background: #c0c0c0;
+  --border-radius: 5px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  background-color: var(--light-background);
+}
+
+.bg-dark {
+  background-color: var(--dark-background) !important;
+}
+
+.text-light {
+  color: var(--light-text) !important;
+}
+
+.bg-light {
+  background-color: var(--light-background) !important;
+}
+
+.text-dark {
+  color: var(--dark-text) !important;
+}
+
+.custom-header {
+  background-color: var(--dark-background) !important;
+  color: var(--light-text) !important;
+  width: 100%;
+  text-align: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bolder;
+}
+
+img {
+  max-height: 100px;
+  max-width: 100px;
+  float: left;
+  margin: 5px;
+}
