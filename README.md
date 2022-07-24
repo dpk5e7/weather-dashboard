@@ -44,10 +44,7 @@ The use of a modern web browser.
 
 ### Screenshots
 
-TODO: Update Screenshots
-
 ![Screenshot 1](./assets/Screenshots/screenshot1.jpg)
-![Screenshot 2](./assets/Screenshots/screenshot2.jpg)
 
 ## Authors
 
