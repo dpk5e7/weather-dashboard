@@ -16,7 +16,7 @@ async function searchOpenWeatherAPI(searchText) {
 }
 
 async function fetchCoodinates(cityName) {
-  let apiKey = "a6aa5759087530633423e81ce8de3612";
+  let apiKey = config.OPEN_WEATHER_KEY;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
 
   const repsponse = await fetch(apiUrl);
@@ -27,7 +27,7 @@ async function fetchCoodinates(cityName) {
 
 async function fetchWeatherData(coordinates) {
   //https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,hourly,alerts&appid=a6aa5759087530633423e81ce8de3612
-  let apiKey = "a6aa5759087530633423e81ce8de3612";
+  let apiKey = config.OPEN_WEATHER_KEY;
   let lat = coordinates[0];
   let lon = coordinates[1];
   let lang = "en";
