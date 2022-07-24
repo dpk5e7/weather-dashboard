@@ -37,6 +37,9 @@ body {
   color: var(--light-text) !important;
   width: 100%;
   text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 h1,
@@ -48,9 +51,33 @@ h6 {
   font-weight: bolder;
 }
 
-img {
-  max-height: 100px;
+.card-img-top {
   max-width: 100px;
-  float: left;
-  margin: 5px;
+  max-height: 100px;
+  float: right;
+}
+
+.text-bg-low {
+  background-color: #7fce8d;
+  color: var(--dark-text) !important;
+}
+
+.text-bg-moderate {
+  background-color: #ffd939;
+  color: var(--dark-text) !important;
+}
+
+.text-bg-high {
+  background-color: #ff9929;
+  color: var(--dark-text) !important;
+}
+
+.text-bg-very-high {
+  background-color: #ff2e17;
+  color: var(--dark-text) !important;
+}
+
+.text-bg-extreme {
+  background-color: #e7418e;
+  color: var(--dark-text) !important;
 }

@@ -70,3 +70,4 @@ This project is not licensed.
 - [Mozilla Developer Network](https://developer.mozilla.org/)
 - [Bootstrap](https://getbootstrap.com/)
 - [OpenWeather One Call API](https://openweathermap.org/api/one-call-api)
+- [EPA UV Index Guide](https://www.epa.gov/sites/default/files/documents/uviguide.pdf)
