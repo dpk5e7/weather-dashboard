@@ -19,6 +19,7 @@ async function fetchCoodinates(cityName) {
   let apiKey = config.OPEN_WEATHER_KEY;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
 
+  // Force it to wait for data to return before going on
   const response = await fetch(apiUrl);
   const data = await response.json();
 
@@ -35,6 +36,7 @@ async function fetchWeatherData(coordinates) {
   let exclude = "minutely,hourly,alerts";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}&lang=${lang}&exclude=${exclude}`;
 
+  // Force it to wait for data to return before going on
   const response = await fetch(apiUrl);
   const data = await response.json();
 
@@ -45,7 +47,6 @@ function displayWeatherData(searchText, searchResults, coordinates) {
   removeAllChildNodes(searchResultsElement);
 
   // Current weather
-  //let currentDate = new Date(searchResults.current.dt * 1000); //timestamp * 1000
   let currentDate = moment.unix(searchResults.current.dt).format("M/D/YYYY");
   let currentWeatherIcon = searchResults.current.weather[0].icon;
   let currentWeatherDesc = searchResults.current.weather[0].description;
@@ -207,6 +208,7 @@ function displayWeatherData(searchText, searchResults, coordinates) {
   searchResultsElement.append(dvDailyWeatherData);
 }
 
+// Function to pick correct badge color based on the UV index.
 function getUVBadgeClass(uvi) {
   let uviClass = "";
   if (uvi <= 3) {
@@ -223,6 +225,7 @@ function getUVBadgeClass(uvi) {
   return uviClass;
 }
 
+// Call this function when the form is submitted
 function search(event) {
   event.preventDefault();
 
@@ -246,6 +249,7 @@ function search(event) {
 }
 searchForm.addEventListener("submit", search);
 
+// Function to remove all child nodes
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
@@ -259,6 +263,7 @@ function toTitleCase(str) {
   });
 }
 
+// Saves the search to an array which will be displayed on the left side of the screen
 function saveSearch(searchText) {
   // If it's already in the array, remove it so that we can add it again at the top
   if (previousSearches.includes(searchText)) {
@@ -268,6 +273,7 @@ function saveSearch(searchText) {
   localStorage.setItem("previousSearches", JSON.stringify(previousSearches));
 }
 
+// Empties the search history
 function clearSearchHistory(event) {
   event.preventDefault();
 
@@ -278,6 +284,7 @@ function clearSearchHistory(event) {
 }
 btnClearSearchHistory.addEventListener("click", clearSearchHistory);
 
+// Creates a button for all previous searches
 function displayPreviousSearches() {
   removeAllChildNodes(previousSearchesElement);
 
@@ -301,12 +308,13 @@ function displayPreviousSearches() {
     btnClearSearchHistory.classList.remove("invisible");
     btnClearSearchHistory.classList.add("visible");
   } else {
-    //Hide Clear Search History Button
+    //Hide Clear Search History Button if no previous searches exist in localStorage
     btnClearSearchHistory.classList.remove("visible");
     btnClearSearchHistory.classList.add("invisible");
   }
 }
 
+// Displays weather data if a previous search button was clicked.
 previousSearchesElement.addEventListener("click", function (event) {
   if (event.target.classList.contains("previousSearch")) {
     let searchText = event.target.textContent;
