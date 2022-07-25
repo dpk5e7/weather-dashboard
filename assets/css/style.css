@@ -51,9 +51,19 @@ h6 {
   font-weight: bolder;
 }
 
-.card-img-top {
+.weather-medium {
   max-width: 100px;
   max-height: 100px;
+}
+
+.weather-large {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.map {
+  max-width: 240px;
+  max-height: 240px;
   float: right;
 }
 

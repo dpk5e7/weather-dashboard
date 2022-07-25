@@ -12,21 +12,21 @@ async function searchOpenWeatherAPI(searchText) {
   // await tells the function that it has to wait for the asynchronous fetch data to return before continuing
   let searchResults = await fetchWeatherData(coordinates);
 
-  displayWeatherData(searchText, searchResults);
+  displayWeatherData(searchText, searchResults, coordinates);
 }
 
 async function fetchCoodinates(cityName) {
   let apiKey = config.OPEN_WEATHER_KEY;
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`;
 
-  const repsponse = await fetch(apiUrl);
-  const data = await repsponse.json();
+  const response = await fetch(apiUrl);
+  const data = await response.json();
 
   return [data.coord.lat, data.coord.lon];
 }
 
 async function fetchWeatherData(coordinates) {
-  //https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,hourly,alerts&appid=a6aa5759087530633423e81ce8de3612
+  //https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,hourly,alerts&appid={apiKey}
   let apiKey = config.OPEN_WEATHER_KEY;
   let lat = coordinates[0];
   let lon = coordinates[1];
@@ -35,13 +35,13 @@ async function fetchWeatherData(coordinates) {
   let exclude = "minutely,hourly,alerts";
   let apiUrl = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}&lang=${lang}&exclude=${exclude}`;
 
-  const repsponse = await fetch(apiUrl);
-  const data = await repsponse.json();
+  const response = await fetch(apiUrl);
+  const data = await response.json();
 
   return data;
 }
 
-function displayWeatherData(searchText, searchResults) {
+function displayWeatherData(searchText, searchResults, coordinates) {
   removeAllChildNodes(searchResultsElement);
 
   // Current weather
@@ -54,20 +54,18 @@ function displayWeatherData(searchText, searchResults) {
   let currentHumidity = searchResults.current.humidity;
   let currentUVI = searchResults.current.uvi;
 
+  const dvRow = document.createElement("div");
+  dvRow.classList.add("row");
+  dvRow.classList.add("border");
+  dvRow.classList.add("border-dark");
+
   const dvCurrentWeatherData = document.createElement("div");
-  dvCurrentWeatherData.classList.add("row");
-  dvCurrentWeatherData.classList.add("border");
-  dvCurrentWeatherData.classList.add("border-dark");
+  dvCurrentWeatherData.classList.add("col-12");
+  dvCurrentWeatherData.classList.add("col-md-4");
 
   const h3Title = document.createElement("h3");
   h3Title.textContent = `${searchText} ${currentDate}`;
   dvCurrentWeatherData.append(h3Title);
-
-  const imgCurrentWeather = document.createElement("img");
-  imgCurrentWeather.classList.add("card-img-top");
-  imgCurrentWeather.src = `http://openweathermap.org/img/wn/${currentWeatherIcon}@2x.png`;
-  imgCurrentWeather.alt = `${currentWeatherDesc}`;
-  dvCurrentWeatherData.append(imgCurrentWeather);
 
   const pTemp = document.createElement("p");
   pTemp.textContent = `Temp: ${currentTemp} \xB0F`;
@@ -90,7 +88,41 @@ function displayWeatherData(searchText, searchResults) {
   pUVI.append(sUVI);
   dvCurrentWeatherData.append(pUVI);
 
-  searchResultsElement.append(dvCurrentWeatherData);
+  dvRow.append(dvCurrentWeatherData);
+
+  // Weather Image
+  const dvWeatherImage = document.createElement("div");
+  dvWeatherImage.classList.add("col-12");
+  dvWeatherImage.classList.add("col-md-4");
+
+  const imgCurrentWeather = document.createElement("img");
+  imgCurrentWeather.classList.add("weather-large");
+  imgCurrentWeather.src = `http://openweathermap.org/img/wn/${currentWeatherIcon}@4x.png`;
+  imgCurrentWeather.alt = `${currentWeatherDesc}`;
+  dvWeatherImage.append(imgCurrentWeather);
+  dvRow.append(dvWeatherImage);
+
+  // Google Map Static Image
+  const dvMapImage = document.createElement("div");
+  dvMapImage.classList.add("col-12");
+  dvMapImage.classList.add("col-md-4");
+
+  let apiKey = config.GOOGLE_MAPS_KEY;
+  let lat = coordinates[0];
+  let lon = coordinates[1];
+  let zoom = 8;
+  let size = "240x240";
+  let apiUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${lat}%2c%20${lon}&zoom=${zoom}&size=${size}&key=${apiKey}`;
+
+  const locationImage = document.createElement("img");
+  locationImage.classList.add("map");
+  locationImage.src = apiUrl;
+  locationImage.alt = searchText;
+  dvMapImage.append(locationImage);
+
+  dvRow.append(dvMapImage);
+
+  searchResultsElement.append(dvRow);
 
   // 5-Day Forecast Title
   const dv5DayForecastTitle = document.createElement("div");
@@ -135,7 +167,7 @@ function displayWeatherData(searchText, searchResults) {
     dvCard.append(h5Title);
 
     const imgDailyWeather = document.createElement("img");
-    imgDailyWeather.classList.add("card-img-top");
+    imgDailyWeather.classList.add("weather-medium");
     imgDailyWeather.src = `http://openweathermap.org/img/wn/${dailyWeatherIcon}@2x.png`;
     imgDailyWeather.alt = `${dailyWeatherDesc}`;
     dvCard.append(imgDailyWeather);
