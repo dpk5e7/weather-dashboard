@@ -33,7 +33,7 @@ async function fetchWeatherData(coordinates) {
   let lang = "en";
   let units = "imperial";
   let exclude = "minutely,hourly,alerts";
-  let apiUrl = `http://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}&lang=${lang}&exclude=${exclude}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}&lang=${lang}&exclude=${exclude}`;
 
   const response = await fetch(apiUrl);
   const data = await response.json();
@@ -97,7 +97,7 @@ function displayWeatherData(searchText, searchResults, coordinates) {
 
   const imgCurrentWeather = document.createElement("img");
   imgCurrentWeather.classList.add("weather-large");
-  imgCurrentWeather.src = `http://openweathermap.org/img/wn/${currentWeatherIcon}@4x.png`;
+  imgCurrentWeather.src = `https://openweathermap.org/img/wn/${currentWeatherIcon}@4x.png`;
   imgCurrentWeather.alt = `${currentWeatherDesc}`;
   dvWeatherImage.append(imgCurrentWeather);
   dvRow.append(dvWeatherImage);
@@ -168,7 +168,7 @@ function displayWeatherData(searchText, searchResults, coordinates) {
 
     const imgDailyWeather = document.createElement("img");
     imgDailyWeather.classList.add("weather-medium");
-    imgDailyWeather.src = `http://openweathermap.org/img/wn/${dailyWeatherIcon}@2x.png`;
+    imgDailyWeather.src = `https://openweathermap.org/img/wn/${dailyWeatherIcon}@2x.png`;
     imgDailyWeather.alt = `${dailyWeatherDesc}`;
     dvCard.append(imgDailyWeather);
 
