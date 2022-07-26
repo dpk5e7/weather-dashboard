@@ -225,44 +225,6 @@ function getUVBadgeClass(uvi) {
   return uviClass;
 }
 
-// Call this function when the form is submitted
-function search(event) {
-  event.preventDefault();
-
-  let searchText = toTitleCase(searchTextElement.value.trim());
-
-  if (searchText) {
-    // Search Open Weather API for provided city name
-    searchOpenWeatherAPI(searchText);
-
-    // Save Search Text to Local Storage
-    saveSearch(searchText);
-
-    // Update Button list of Previous Searches
-    displayPreviousSearches();
-
-    // Clear the Search textbox
-    searchTextElement.value = "";
-  } else {
-    alert("Please enter a search parameter.");
-  }
-}
-searchForm.addEventListener("submit", search);
-
-// Function to remove all child nodes
-function removeAllChildNodes(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-}
-
-//https://stackoverflow.com/questions/4878756/how-to-capitalize-first-letter-of-each-word-like-a-2-word-city
-function toTitleCase(str) {
-  return str.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
-}
-
 // Saves the search to an array which will be displayed on the left side of the screen
 function saveSearch(searchText) {
   // If it's already in the array, remove it so that we can add it again at the top
@@ -272,17 +234,6 @@ function saveSearch(searchText) {
   previousSearches.unshift(searchText);
   localStorage.setItem("previousSearches", JSON.stringify(previousSearches));
 }
-
-// Empties the search history
-function clearSearchHistory(event) {
-  event.preventDefault();
-
-  localStorage.removeItem("previousSearches");
-  previousSearches = [];
-
-  displayPreviousSearches();
-}
-btnClearSearchHistory.addEventListener("click", clearSearchHistory);
 
 // Creates a button for all previous searches
 function displayPreviousSearches() {
@@ -313,6 +264,55 @@ function displayPreviousSearches() {
     btnClearSearchHistory.classList.add("invisible");
   }
 }
+
+// Function to remove all child nodes
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+
+//https://stackoverflow.com/questions/4878756/how-to-capitalize-first-letter-of-each-word-like-a-2-word-city
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+}
+
+// Call this function when the form is submitted
+function search(event) {
+  event.preventDefault();
+
+  let searchText = toTitleCase(searchTextElement.value.trim());
+
+  if (searchText) {
+    // Search Open Weather API for provided city name
+    searchOpenWeatherAPI(searchText);
+
+    // Save Search Text to Local Storage
+    saveSearch(searchText);
+
+    // Update Button list of Previous Searches
+    displayPreviousSearches();
+
+    // Clear the Search textbox
+    searchTextElement.value = "";
+  } else {
+    alert("Please enter a search parameter.");
+  }
+}
+searchForm.addEventListener("submit", search);
+
+// Empties the search history
+function clearSearchHistory(event) {
+  event.preventDefault();
+
+  localStorage.removeItem("previousSearches");
+  previousSearches = [];
+
+  displayPreviousSearches();
+}
+btnClearSearchHistory.addEventListener("click", clearSearchHistory);
 
 // Displays weather data if a previous search button was clicked.
 previousSearchesElement.addEventListener("click", function (event) {
