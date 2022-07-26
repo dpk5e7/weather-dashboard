@@ -4,16 +4,18 @@ This project was built to satisfy the Module 06 Challenge for the University of 
 
 ## Description
 
-This is a weather dashboad application that allows a user to to search for a location's weather data.
+This is a weather dashboard application that allows a user to to search for a location's weather data.
 
 The [OpenWeather One Call API](https://openweathermap.org/api/one-call-api) is used to retrieve weather data for cities.
+
+The [Google Maps Static API](https://developers.google.com/maps/documentation/maps-static/overview) was used to pull up a map of the city.
 
 ### User Story
 
 ```
 AS A traveler
 I WANT to see the weather outlook for multiple cities
-SO THAT I can plan a trip accordingl
+SO THAT I can plan a trip accordingly
 ```
 
 ### Acceptance Criteria
@@ -68,3 +70,4 @@ This project is not licensed.
 - [Bootstrap](https://getbootstrap.com/)
 - [OpenWeather One Call API](https://openweathermap.org/api/one-call-api)
 - [EPA UV Index Guide](https://www.epa.gov/sites/default/files/documents/uviguide.pdf)
+- [Google Maps Static API](https://developers.google.com/maps/documentation/maps-static/overview)
