@@ -108,12 +108,12 @@ function displayWeatherData(searchText, searchResults, coordinates) {
   dvMapImage.classList.add("col-12");
   dvMapImage.classList.add("col-md-4");
 
-  let apiKey = config.GOOGLE_MAPS_KEY;
+  let apiKey = config.MAPBOX_API_KEY;
   let lat = coordinates[0];
   let lon = coordinates[1];
-  let zoom = 8;
+  let zoom = 9;
   let size = "240x240";
-  let apiUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${lat}%2c%20${lon}&zoom=${zoom}&size=${size}&key=${apiKey}`;
+  let apiUrl = `https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${lon},${lat},${zoom},0/${size}?access_token=${apiKey}`;
 
   const locationImage = document.createElement("img");
   locationImage.classList.add("map");
